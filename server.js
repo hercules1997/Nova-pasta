@@ -80,13 +80,16 @@ app.post("/stock-gifts", async (req, res) => {
   }
 });
 
-// 📌 Listar todos os brindes do estoque
-app.get("/stock-gifts", async (req, res) => {
+app.post("/stock-gifts", async (req, res) => {
+  console.log("Recebendo requisição para adicionar brinde:", req.body); // Log da requisição
   try {
-    const gifts = await StockGift.find();
-    res.json(gifts);
+    const newGift = new StockGift(req.body);
+    await newGift.save();
+    console.log("Brinde adicionado com sucesso:", newGift); // Log de sucesso
+    res.status(201).json(newGift);
   } catch (error) {
-    res.status(500).json({ message: "Erro ao buscar brindes", error });
+    console.error("Erro ao adicionar brinde:", error); // Log do erro
+    res.status(500).json({ message: "Erro ao adicionar brinde", error });
   }
 });
 
