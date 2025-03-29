@@ -5,14 +5,10 @@ const mongoose = require("mongoose");
 const app = express();
 app.use(express.json()); // Permite trabalhar com JSON no body das requisições
 
-// 📌 Conectar ao MongoDB no Railway
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("🔥 Conectado ao MongoDB no Railway!"))
-  .catch((err) => console.error("Erro ao conectar ao MongoDB:", err));
+  .catch((err) => console.error("❌ Erro ao conectar no MongoDB:", err));
 
 /* ==================== SCHEMAS ==================== */
 // 📌 Schema para Tutor e Animal
